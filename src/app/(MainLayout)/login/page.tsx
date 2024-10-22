@@ -37,10 +37,9 @@ const LoginPage = () => {
   return (
     <>
       {isPending && <Loading />}
-      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
-        <h3 className="my-2 text-2xl font-bold">Login with FoundX</h3>
-        <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
-        <div className="w-[35%]">
+      <div className="flex w-full min-h-screen flex-col items-center justify-center bg-[url('https://townsquare.media/site/701/files/2023/04/attachment-Untitled-design-31.jpg')] bg-cover bg-center px-4">
+        <div className="w-full max-w-md p-6 md:p-8 lg:p-10 rounded-md border backdrop-blur-md bg-black/10 text-center">
+          <h3 className="mb-6 text-4xl font-bold">Login</h3>
           <YMForm
             resolver={zodResolver(loginValidationSchema)}
             onSubmit={onSubmit}

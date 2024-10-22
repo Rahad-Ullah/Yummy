@@ -19,20 +19,20 @@ import { Button } from "@nextui-org/button";
 import NavbarDropDown from "./NavbarDropDown";
 
 import { siteConfig } from "@/src/config/site";
-import { Logo } from "@/src/components/icons";
 import { ThemeSwitch } from "../../theme-switch";
 import { Pizza } from "lucide-react";
+import { useUser } from "@/src/context/user.provider";
 
 export const Navbar = () => {
-  //   const { user } = useUser();
+  const { user } = useUser();
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Pizza />
-            <p className="font-bold text-inherit">Yummy</p>
+            <Pizza size={28} />
+            <p className="text-xl font-bold text-inherit">Yummy</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -41,7 +41,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  "data-[active=true]:text-primary data-[active=true]:font-medium",
                 )}
                 color="foreground"
                 href={item.href}
@@ -62,16 +62,13 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
-          {/* {'user?.email' ? (
+          {user?.email ? (
             <NavbarDropDown />
           ) : (
             <Link href="/login">
               <Button variant="shadow">Login</Button>
             </Link>
-          )} */}
-          <Link href="/login">
-            <Button variant="shadow">Login</Button>
-          </Link>
+          )}
         </NavbarItem>
       </NavbarContent>
 
