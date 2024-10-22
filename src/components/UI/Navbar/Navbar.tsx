@@ -21,6 +21,7 @@ import NavbarDropDown from "./NavbarDropDown";
 import { siteConfig } from "@/src/config/site";
 import { Logo } from "@/src/components/icons";
 import { ThemeSwitch } from "../../theme-switch";
+import { Pizza } from "lucide-react";
 
 export const Navbar = () => {
   //   const { user } = useUser();
@@ -30,8 +31,8 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <Pizza />
+            <p className="font-bold text-inherit">Yummy</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -92,7 +93,7 @@ export const Navbar = () => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}
