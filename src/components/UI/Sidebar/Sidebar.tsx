@@ -4,7 +4,6 @@
 /* eslint-disable import/order */
 import SigninIcon from "../../../assets/icons/fill/Signin";
 import MainTooltip from "../Tooltip/MainTooltip";
-import LogoIcon from "../../../assets/icons/logo/Logo";
 import { useEffect } from "react";
 import ExpandRightIcon from "../../../assets/icons/fill/ExpandRight";
 import { useTranslation } from "react-i18next";
@@ -14,6 +13,7 @@ import Link from "next/link";
 import { useSidebarStore } from "@/src/stores/useSidebar";
 import sideBarItem from "@/src/constants/sideBarItem";
 import { logout } from "@/src/services/AuthService";
+import { Pizza } from "lucide-react";
 
 export default function Sidebar() {
   const { t, i18n } = useTranslation();
@@ -80,10 +80,12 @@ export default function Sidebar() {
           </MainTooltip>
           <div>
             <div className="flex items-center gap-4 sm:gap-3 flex-wrap-reverse mt-2">
-              <LogoIcon />
+              <Pizza className="text-amber-500" size={32} />
               {/* //TODO should set title here also */}
-              <h1 className="ltr:font-poppinsRegular text-2xl sm:text-3xl md:hidden text-white">
-                {t(document.title)}
+              <h1
+                className={`ltr:font-poppinsRegular text-2xl sm:text-3xl md:hidden ${isSidebarExpanded && "md:block"} text-white`}
+              >
+                Yummy
               </h1>
               <span
                 className="cursor-pointer md:hidden"
@@ -127,7 +129,7 @@ export default function Sidebar() {
                 !isSidebarExpanded && "md:hidden"
               }`}
             >
-              {t("signout")}
+              {t("Signout")}
             </span>
           </div>
         </div>

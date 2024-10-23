@@ -5,6 +5,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import Loading from "@/src/components/UI/Loading";
 import YMForm from "@/src/components/form/YMForm";
@@ -15,8 +16,6 @@ import { useUser } from "@/src/context/user.provider";
 
 const LoginPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectRoute = searchParams.get("redirect");
   const { setIsLoading: setUserLoading } = useUser();
 
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
@@ -26,17 +25,24 @@ const LoginPage = () => {
     setUserLoading(true);
   };
 
-  if (!isPending && isSuccess) {
-    if (redirectRoute) {
-      router.push(redirectRoute);
-    } else {
-      router.push("/");
+  const RedirectAfterLogin = () => {
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirect");
+
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
     }
-  }
+
+    return isPending && <Loading />;
+  };
 
   return (
-    <>
-      {isPending && <Loading />}
+    <Suspense fallback={<Loading />}>
+      <RedirectAfterLogin />
       <div className="flex w-full min-h-screen flex-col items-center justify-center bg-[url('https://townsquare.media/site/701/files/2023/04/attachment-Untitled-design-31.jpg')] bg-cover bg-center px-4">
         <div className="w-full max-w-md p-6 md:p-8 lg:p-10 rounded-md border backdrop-blur-md bg-black/10 text-center">
           <h3 className="mb-6 text-4xl font-bold">Login</h3>
@@ -64,7 +70,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 

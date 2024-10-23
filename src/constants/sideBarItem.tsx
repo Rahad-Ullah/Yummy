@@ -1,39 +1,53 @@
-import DashboardIcon from "../assets/icons/fill/Dashboard";
-import WalletIcon from "../assets/icons/fill/Wallet";
-import CommentIcon from "../assets/icons/fill/Comment";
+/* eslint-disable import/order */
 import MessageIcon from "../assets/icons/fill/Message";
 import ChartIcon from "../assets/icons/fill/Chart";
 import CreditIcon from "../assets/icons/fill/Credit";
+import { Home, User, Utensils } from "lucide-react";
 
 export default function sideBarItem(pathname: string) {
   return [
     {
-      title: "dashboard",
-      Icon: <DashboardIcon isActive={pathname === "/"} />,
-      href: "/",
+      title: "Dashboard",
+      Icon: (
+        <Home
+          className={`${pathname === "/profile" && "text-amber-500"}`}
+          size={28}
+        />
+      ),
+      href: "/dashboard",
     },
     {
-      title: "wallet",
-      Icon: <WalletIcon isActive={pathname === "/wallet"} />,
-      href: "/wallet",
+      title: "Profile",
+      Icon: (
+        <User
+          className={`${pathname === "/profile" && "text-amber-500"}`}
+          size={28}
+        />
+      ),
+      href: "/profile",
     },
     {
-      title: "comments",
-      Icon: <CommentIcon isActive={pathname === "/comments"} />,
-      href: "/comments",
+      title: "Recipes",
+      Icon: (
+        <Utensils
+          className={`${pathname === "/recipes" && "text-amber-500"}`}
+          size={28}
+        />
+      ),
+      href: "/recipes",
     },
     {
-      title: "messages",
+      title: "Messages",
       Icon: <MessageIcon isActive={pathname === "/messages"} />,
       href: "/messages",
     },
     {
-      title: "statistics",
+      title: "Statistics",
       Icon: <ChartIcon isActive={pathname === "/statistics"} />,
       href: "/statistics",
     },
     {
-      title: "payments",
+      title: "Payments",
       Icon: <CreditIcon isActive={pathname === "/payments"} />,
       href: "/payments",
     },

@@ -14,15 +14,12 @@ import PopOver from "../Popover/Popover";
 import SearchPopoverContent from "../Popover/PopoverContents/SearchPopoverContent";
 import UserPopoverContent from "../Popover/PopoverContents/UserPopoverContent";
 import MenuIcon from "../../../assets/icons/fill/Menu";
-import MainDropdown from "../Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import { useSidebarStore } from "@/src/stores/useSidebar";
-import { languages } from "@/src/constants/languages";
-import ChangeLanguage from "../Dropdown/DropdownContents/ChangeLanguage";
 import { ThemeSwitch } from "../../theme-switch";
 
 export default function Topbar() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { isSidebarOpen, toggleSidebar, isSidebarExpanded } = useSidebarStore();
 
   return (
@@ -37,7 +34,7 @@ export default function Topbar() {
         {/* //TODO should fix this when we Login the title is Login */}
         {!isSidebarOpen && (
           <h1 className="ltr:font-poppinsRegular text-lg 2xs:text-2xl sm:text-3xl">
-            {t("dashboard")}
+            {t("Dashboard")}
           </h1>
         )}
       </div>
@@ -47,7 +44,7 @@ export default function Topbar() {
             inputWrapper: ["rounded-full"],
           }}
           className={`font-poppinsRegular hidden ${
-            isSidebarExpanded ? "lg:hidden lgb:block" : "lg:block"
+            isSidebarExpanded ? "lg:block lgb:block" : "lg:block"
           }`}
           startContent={<SearchIcon />}
           endContent={
@@ -79,16 +76,16 @@ export default function Topbar() {
         <div className="hidden sm:block">
           <ThemeSwitch />
         </div>
-        <MainDropdown content={<ChangeLanguage />}>
+        {/* <MainDropdown content={<ChangeLanguage />}>
           <Avatar
             src={languages.find((lng) => lng.key === i18n.language)?.icon}
             className="w-[30px] h-[30px] cursor-pointer lg:w-[90px] lg:h-[35px]"
           />
-        </MainDropdown>
+        </MainDropdown> */}
         <Divider className="rotate-90 w-5 h-[2px] bg-primaryGray" />
         <div
           className={`hidden ${
-            isSidebarExpanded ? "md:hidden" : "md:block"
+            isSidebarExpanded ? "md:hidden" : "md:hidden"
           } mdb:block`}
         >
           <PopOver content={<UserPopoverContent />}>
@@ -102,7 +99,7 @@ export default function Topbar() {
             <Avatar
               src={userImage}
               className={`block ${
-                isSidebarExpanded ? "md:block" : "md:hidden"
+                isSidebarExpanded ? "md:block" : "md:block"
               } mdb:hidden cursor-pointer`}
             />
           </div>

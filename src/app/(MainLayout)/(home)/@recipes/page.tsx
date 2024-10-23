@@ -6,8 +6,19 @@ import { IRecipe } from "@/src/types";
 
 const Recipes = async () => {
   const res = await fetch(`${envConfig.baseApi}/recipes`);
+
+  // hadle request fail
+  if (!res.ok) {
+    throw new Error("Failed to fetch recipes");
+  }
+
+  // data from the response
   const { data: recipes } = await res.json();
-  // console.log(recipes);
+
+  // handle if no recipes are returned
+  if (!recipes || recipes.length === 0) {
+    return <p>No recipes found.</p>;
+  }
 
   return (
     <div>
