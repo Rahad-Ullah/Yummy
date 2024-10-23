@@ -8,19 +8,18 @@ import SearchIcon from "../../../assets/icons/fill/Search";
 import SettingsIcon from "../../../assets/icons/fill/Settings";
 import MainTooltip from "../Tooltip/MainTooltip";
 import NotificationPin from "../../../assets/icons/fill/NotificationPin";
-import MainUserCard from "../UserCard/MainUserCard";
-import userImage from "../../../assets/pictures/users/Avatar3.svg";
 import PopOver from "../Popover/Popover";
-import SearchPopoverContent from "../Popover/PopoverContents/SearchPopoverContent";
 import UserPopoverContent from "../Popover/PopoverContents/UserPopoverContent";
 import MenuIcon from "../../../assets/icons/fill/Menu";
 import { useTranslation } from "react-i18next";
 import { useSidebarStore } from "@/src/stores/useSidebar";
 import { ThemeSwitch } from "../../theme-switch";
+import { useUser } from "@/src/context/user.provider";
 
 export default function Topbar() {
   const { t } = useTranslation();
   const { isSidebarOpen, toggleSidebar, isSidebarExpanded } = useSidebarStore();
+  const { user } = useUser();
 
   return (
     <Card className="dark:bg-black dark:shadow-md dark:shadow-white rounded-full py-3 px-5 flex-row justify-between items-center sticky top-5 z-20">
@@ -33,7 +32,7 @@ export default function Topbar() {
         </span>
         {/* //TODO should fix this when we Login the title is Login */}
         {!isSidebarOpen && (
-          <h1 className="ltr:font-poppinsRegular text-lg 2xs:text-2xl sm:text-3xl">
+          <h1 className="ltr:font-poppinsRegular text-lg md:text-2xl">
             {t("Dashboard")}
           </h1>
         )}
@@ -54,15 +53,6 @@ export default function Topbar() {
           }
           placeholder={t("search")}
         />
-        <PopOver content={<SearchPopoverContent />}>
-          <span
-            className={`cursor-pointer block ${
-              isSidebarExpanded ? "lg:block lgb:hidden" : "lg:hidden"
-            }`}
-          >
-            <SearchIcon />
-          </span>
-        </PopOver>
         <MainTooltip content={t("settings")}>
           <span className="cursor-pointer hidden sm:block">
             <SettingsIcon />
@@ -83,21 +73,10 @@ export default function Topbar() {
           />
         </MainDropdown> */}
         <Divider className="rotate-90 w-5 h-[2px] bg-primaryGray" />
-        <div
-          className={`hidden ${
-            isSidebarExpanded ? "md:hidden" : "md:hidden"
-          } mdb:block`}
-        >
-          <PopOver content={<UserPopoverContent />}>
-            <div className="cursor-pointer">
-              <MainUserCard />
-            </div>
-          </PopOver>
-        </div>
-        <PopOver content={<UserPopoverContent />}>
+        <PopOver content={<UserPopoverContent user={user} />}>
           <div>
             <Avatar
-              src={userImage}
+              src={user?.profilePhoto as string}
               className={`block ${
                 isSidebarExpanded ? "md:block" : "md:block"
               } mdb:hidden cursor-pointer`}

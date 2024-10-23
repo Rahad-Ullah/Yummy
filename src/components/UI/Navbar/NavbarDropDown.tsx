@@ -31,15 +31,13 @@ const NavbarDropDown = () => {
         <Avatar />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem onClick={() => handleNavigation("/profile")}>
+        <DropdownItem onClick={() => handleNavigation("/dashboard")}>
+          Dashboard
+        </DropdownItem>
+        <DropdownItem onClick={() => handleNavigation("/dashboard/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/profile/setting")}>
-          Settings
-        </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/profile/create-post")}>
-          Create Post
-        </DropdownItem>
+        <DropdownItem>Settings</DropdownItem>
         <DropdownItem
           className="text-danger-500"
           color="danger"

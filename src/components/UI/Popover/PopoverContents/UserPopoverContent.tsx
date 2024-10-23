@@ -7,12 +7,15 @@ import { Divider } from "@nextui-org/react";
 import MainUserCard from "../../UserCard/MainUserCard";
 import SignoutIcon from "../../../../assets/icons/fill/Signout";
 import { useTheme } from "next-themes";
-import ThemeSwitch from "../../ThemeSwitch/ThemeSwitch";
 import { useTranslation } from "react-i18next";
 import { logout } from "@/src/services/AuthService";
 import Link from "next/link";
+import { IUser } from "@/src/types";
+import { useUser } from "@/src/context/user.provider";
+import { ThemeSwitch } from "@/src/components/theme-switch";
 
-export default function UserPopoverContent() {
+export default function UserPopoverContent({ user }: { user: IUser | null }) {
+  const { setIsLoading: setUserLoading } = useUser();
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
   const isLightMode = theme === "light";
@@ -25,22 +28,21 @@ export default function UserPopoverContent() {
         return setTheme("light");
     }
   };
+
+  const handleLogout = () => {
+    logout();
+    setUserLoading(true);
+  };
   return (
     <div className="w-56">
-      <MainUserCard />
+      <MainUserCard user={user} />
       <Divider className="my-2" />
-      <ul className="w-full child:transition-all child:duration-200 child-hover:bg-primaryGray dark:child-hover:bg-black child:p-2 child:rounded-lg child:cursor-pointer">
+      <ul className="w-full child:transition-all child:duration-200 child-hover:bg-primaryGray dark:child-hover:bg-black child:p-2 child:rounded-lg child:cursor-pointer space-y-2">
         <li>
-          <Link href="">{t("profile")}</Link>
-        </li>
-        <li className="sm:hidden">
-          <Link href="">{t("notification")}</Link>
-        </li>
-        <li className="sm:hidden">
-          <Link href="">{t("settings")}</Link>
+          <Link href="/dashboard/profile">{t("Profile")}</Link>
         </li>
         <li>
-          <Link href="">{t("changePassword")}</Link>
+          <Link href="">{t("Change Password")}</Link>
         </li>
         <li className="sm:hidden" onClick={changeThemeHandler}>
           <ThemeSwitch />
@@ -49,9 +51,9 @@ export default function UserPopoverContent() {
       <Divider className="my-2" />
       <div
         className="flex items-center justify-between gap-2 hover:text-white hover:bg-red-700 translate-x-0 duration-200 w-full p-2 cursor-pointer rounded-lg"
-        onClick={logout}
+        onClick={handleLogout}
       >
-        <span>{t("signout")}</span>
+        <span>{t("Signout")}</span>
         <SignoutIcon />
       </div>
     </div>

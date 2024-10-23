@@ -1,21 +1,23 @@
 import { Avatar, Chip } from "@nextui-org/react";
 
-import userImage from "../../../assets/pictures/users/Avatar3.svg";
+import { IUser } from "@/src/types";
 
-export default function MainUserCard() {
+export default function MainUserCard({ user }: { user: IUser | null }) {
   return (
     <div className="flex items-center gap-2">
-      <Avatar alt="img" src={userImage} />
+      <Avatar alt="img" src={user?.profilePhoto as string} />
       <div>
         <div className="flex items-center gap-2">
-          <p className="text-primaryGray text-xs font-poppinsLight">
-            @williamB1111
-          </p>
-          <Chip className="bg-primaryGreen text-black font-poppinsRegular text-xs">
-            Pro
-          </Chip>
+          <h4 className="font-poppinsRegular">{user?.name}</h4>
+          {user?.membership === "PREMIUM" && (
+            <Chip className="bg-amber-500 text-black font-poppinsRegular text-xs">
+              PRO
+            </Chip>
+          )}
         </div>
-        <h4 className="font-poppinsRegular">William Blake</h4>
+        <p className="text-primaryGray text-xs font-poppinsLight">
+          {user?.email}
+        </p>
       </div>
     </div>
   );

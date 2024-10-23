@@ -11,9 +11,10 @@ import CloseIcon from "@/src/assets/icons/fill/Close";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useSidebarStore } from "@/src/stores/useSidebar";
-import sideBarItem from "@/src/constants/sideBarItem";
 import { logout } from "@/src/services/AuthService";
 import { Pizza } from "lucide-react";
+import { useUser } from "@/src/context/user.provider";
+import { AdminSideBarItem, UserSideBarItem } from "@/src/constants/sideBarItem";
 
 export default function Sidebar() {
   const { t, i18n } = useTranslation();
@@ -25,6 +26,8 @@ export default function Sidebar() {
   } = useSidebarStore();
 
   const pathname = usePathname();
+  const { user } = useUser();
+  const { setIsLoading: setUserLoading } = useUser();
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +42,11 @@ export default function Sidebar() {
       window.removeEventListener("resize", handleResize);
     };
   }, [isSidebarOpen, toggleSidebar]);
+
+  const handleLogout = () => {
+    logout();
+    setUserLoading(true);
+  };
 
   return (
     <>
@@ -80,13 +88,16 @@ export default function Sidebar() {
           </MainTooltip>
           <div>
             <div className="flex items-center gap-4 sm:gap-3 flex-wrap-reverse mt-2">
-              <Pizza className="text-amber-500" size={32} />
-              {/* //TODO should set title here also */}
-              <h1
-                className={`ltr:font-poppinsRegular text-2xl sm:text-3xl md:hidden ${isSidebarExpanded && "md:block"} text-white`}
-              >
-                Yummy
-              </h1>
+              <Link href={"/"}>
+                <Pizza size={32} />
+              </Link>
+              <Link href={"/"}>
+                <h1
+                  className={`ltr:font-poppinsRegular ${isSidebarExpanded ? "md:block" : "md:hidden"} text-white`}
+                >
+                  Yummy
+                </h1>
+              </Link>
               <span
                 className="cursor-pointer md:hidden"
                 onClick={() => toggleSidebar(false)}
@@ -94,13 +105,16 @@ export default function Sidebar() {
                 <CloseIcon />
               </span>
             </div>
-            <ul className="flex flex-col gap-4 mt-16">
-              {sideBarItem(pathname).map((item, index) => (
-                <li
-                  key={index}
-                  className="child-hover:text-primaryGreen child:text-white child:transition-all"
-                >
-                  <Link className="flex items-center gap-2" href={item.href}>
+            <ul className="w-full flex flex-col gap-2 mt-16">
+              {(user?.role === "USER"
+                ? UserSideBarItem()
+                : AdminSideBarItem()
+              ).map((item, index) => (
+                <li key={index} className="p-2">
+                  <Link
+                    className={`${pathname === item.href ? "flex items-center gap-2 text-amber-500" : "flex items-center gap-2"}`}
+                    href={item.href}
+                  >
                     <MainTooltip key={index} content={t(item.title)}>
                       <span className="cursor-pointer">{item.Icon}</span>
                     </MainTooltip>
@@ -117,7 +131,10 @@ export default function Sidebar() {
             </ul>
           </div>
           {/* //TODO should change this to link */}
-          <div className={`flex items-center mt-4 gap-2`} onClick={logout}>
+          <div
+            className={`flex items-center mt-4 gap-2`}
+            onClick={handleLogout}
+          >
             <MainTooltip content="Signout">
               <span className="cursor-pointer">
                 <SigninIcon />
@@ -129,7 +146,7 @@ export default function Sidebar() {
                 !isSidebarExpanded && "md:hidden"
               }`}
             >
-              {t("Signout")}
+              Signout
             </span>
           </div>
         </div>
