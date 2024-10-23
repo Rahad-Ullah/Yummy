@@ -1,6 +1,6 @@
 "use server";
 
-import RecipeCard from "@/src/components/UI/Home/RecipeCard";
+import RecipeCard from "@/src/components/modules/Home/RecipeCard";
 import envConfig from "@/src/config/envConfig";
 import { IRecipe } from "@/src/types";
 
