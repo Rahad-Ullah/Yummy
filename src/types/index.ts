@@ -14,3 +14,18 @@ export interface IUser {
   bio: string | null;
   membership: "BASIC" | "PREMIUM";
 }
+
+export interface IRecipe {
+  _id: string;
+  title: string;
+  image: string;
+  content: string;
+  upvote: number;
+  downvote: number;
+  user: string;
+  type: "BASIC" | "PREMIUM";
+  status: "PUBLISHED" | "UNPUBLISHED";
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
