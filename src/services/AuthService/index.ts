@@ -61,6 +61,7 @@ export const getCurrentUser = async () => {
       profilePhoto: decodedToken.profilePhoto,
       bio: decodedToken.bio,
       membership: decodedToken.membership,
+      status: decodedToken.status,
     };
   }
 

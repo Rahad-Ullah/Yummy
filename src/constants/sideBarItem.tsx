@@ -1,5 +1,5 @@
 /* eslint-disable import/order */
-import { Home, User, Utensils } from "lucide-react";
+import { Home, User, Users, Users2, Utensils } from "lucide-react";
 
 export function UserSideBarItem() {
   return [
@@ -11,12 +11,12 @@ export function UserSideBarItem() {
     {
       title: "Profile",
       Icon: <User size={28} />,
-      href: "/profile",
+      href: "/dashboard/profile",
     },
     {
       title: "My Recipes",
       Icon: <Utensils size={28} />,
-      href: "/my-recipes",
+      href: "/dashboard/my-recipes",
     },
   ];
 }
@@ -31,12 +31,22 @@ export function AdminSideBarItem() {
     {
       title: "Profile",
       Icon: <User size={28} />,
-      href: "/profile",
+      href: "/dashboard/profile",
     },
     {
       title: "Recipes",
       Icon: <Utensils size={28} />,
-      href: "/recipes",
+      href: "/dashboard/recipes",
+    },
+    {
+      title: "Users",
+      Icon: <Users2 size={28} />,
+      href: "/dashboard/users",
+    },
+    {
+      title: "Admins",
+      Icon: <Users size={28} />,
+      href: "/dashboard/admins",
     },
   ];
 }

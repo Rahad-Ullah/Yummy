@@ -13,6 +13,7 @@ export interface IUser {
   profilePhoto: string | null;
   bio: string | null;
   membership: "BASIC" | "PREMIUM";
+  status: "ACTIVE" | "BLOCKED";
 }
 
 export interface IRecipe {
