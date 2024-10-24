@@ -22,7 +22,11 @@ import {
 } from "@nextui-org/react";
 import { IUser } from "@/src/types";
 import { Ellipsis } from "lucide-react";
-import { useGetUsers } from "@/src/hooks/user.hook";
+import {
+  useDeleteUser,
+  useGetUsers,
+  useUserStatusChanged,
+} from "@/src/hooks/user.hook";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ACTIVE: "success",
@@ -44,7 +48,7 @@ export default function UsersTable() {
   const rowsPerPage = 10;
 
   const { data, isLoading, refetch } = useGetUsers(
-    `?page=${page}&limit=${rowsPerPage}`
+    `?page=${page}&limit=${rowsPerPage}&isDeleted=false`
   );
   const users = (data?.data?.data as IUser[]) ?? [];
   const count = data?.data?.count;
@@ -111,9 +115,18 @@ export default function UsersTable() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem>{user.status}</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+                <DropdownItem
+                  onClick={() => handleUserStatusChange(user._id, user.status)}
+                >
+                  {user.status === "ACTIVE" ? "Block" : "Unblock"}
+                </DropdownItem>
+                <DropdownItem
+                  className="text-danger-500"
+                  color="danger"
+                  onClick={() => deleteUser({ id: user._id })}
+                >
+                  Delete
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -122,6 +135,16 @@ export default function UsersTable() {
         return cellValue;
     }
   }, []);
+
+  const { mutate: changeStatus } = useUserStatusChanged();
+  const { mutate: deleteUser } = useDeleteUser();
+
+  const handleUserStatusChange = (id: string, status: string) => {
+    changeStatus({
+      id,
+      status: status === "ACTIVE" ? "BLOCKED" : "ACTIVE",
+    });
+  };
 
   return (
     <Table
