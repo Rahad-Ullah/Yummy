@@ -1,4 +1,4 @@
-import UsersTable from "@/src/components/modules/Users/UsersTable";
+import UsersTable from "@/src/components/modules/AdminDashboard/UsersTable";
 
 const UsersPage = async () => {
   return (

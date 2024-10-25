@@ -28,7 +28,7 @@ export default function RegisterPage() {
     const userData = {
       ...data,
       profilePhoto:
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        "https://t4.ftcdn.net/jpg/01/24/65/69/360_F_124656969_x3y8YVzvrqFZyv3YLWNo6PJaC88SYxqM.jpg",
     };
 
     handleUserRegistration(userData);

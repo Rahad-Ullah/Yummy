@@ -22,11 +22,8 @@ import {
 } from "@nextui-org/react";
 import { IUser } from "@/src/types";
 import { Ellipsis } from "lucide-react";
-import {
-  useDeleteUser,
-  useGetUsers,
-  useUserStatusChanged,
-} from "@/src/hooks/user.hook";
+import { useDeleteUser, useUserStatusChanged } from "@/src/hooks/user.hook";
+import { useGetAdmins } from "@/src/hooks/admin.hook";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ACTIVE: "success",
@@ -43,12 +40,12 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export default function UsersTable() {
+export default function AdminsTable() {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
 
-  const { data, isLoading, refetch } = useGetUsers(
-    `?page=${page}&limit=${rowsPerPage}&isDeleted=false`
+  const { data, isLoading, refetch } = useGetAdmins(
+    `?page=${page}&limit=${rowsPerPage}&isDeleted=false`,
   );
   const users = (data?.data?.data as IUser[]) ?? [];
   const count = data?.data?.count;
