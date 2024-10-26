@@ -1,4 +1,6 @@
+/* eslint-disable import/order */
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { FieldValues } from "react-hook-form";
 
 export const getAdmins = async (query: string) => {
   try {
@@ -10,25 +12,25 @@ export const getAdmins = async (query: string) => {
   }
 };
 
-// export const changeUserStatus = async (payload: FieldValues) => {
-//   try {
-//     const { data } = await axiosInstance.patch(
-//       `/users/change-status/${payload.id}`,
-//       { status: payload.status },
-//     );
+export const updateAdmin = async (payload: FieldValues) => {
+  try {
+    const data = await axiosInstance.patch(
+      `/admins/${payload.id}`,
+      payload.data,
+    );
 
-//     return data;
-//   } catch (error: any) {
-//     throw new Error(error?.response?.data?.message);
-//   }
-// };
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
 
-// export const deleteUser = async (payload: FieldValues) => {
-//   try {
-//     const { data } = await axiosInstance.delete(`/users/${payload.id}`);
+export const removeAdmin = async (payload: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.delete(`/admins/${payload.id}`);
 
-//     return data;
-//   } catch (error: any) {
-//     throw new Error(error?.response?.data?.message);
-//   }
-// };
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};

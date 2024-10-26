@@ -14,16 +14,12 @@ import {
   ChipProps,
   Spinner,
   Pagination,
-  Dropdown,
-  DropdownTrigger,
-  Button,
-  DropdownMenu,
-  DropdownItem,
+  Tooltip,
 } from "@nextui-org/react";
 import { IUser } from "@/src/types";
-import { Ellipsis } from "lucide-react";
-import { useDeleteUser, useUserStatusChanged } from "@/src/hooks/user.hook";
-import { useGetAdmins } from "@/src/hooks/admin.hook";
+import { Trash2 } from "lucide-react";
+import { useGetAdmins, useRemoveAdmin } from "@/src/hooks/admin.hook";
+import AdminModal from "./AdminModal";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ACTIVE: "success",
@@ -34,7 +30,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 const columns = [
   { name: "NAME", uid: "name" },
   { name: "PHONE", uid: "mobileNumber" },
-  { name: "ROLE", uid: "role" },
+  { name: "EMAIL", uid: "email" },
   { name: "MEMBERSHIP", uid: "membership" },
   { name: "STATUS", uid: "status" },
   { name: "ACTIONS", uid: "actions" },
@@ -67,7 +63,10 @@ export default function AdminsTable() {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.profilePhoto as string }}
+            avatarProps={{
+              radius: "lg",
+              src: user.profilePhoto as string,
+            }}
             description={user.email}
             name={cellValue}
           >
@@ -104,28 +103,17 @@ export default function AdminsTable() {
         );
       case "actions":
         return (
-          <div className="relative flex justify-center items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <Ellipsis className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem
-                  onClick={() => handleUserStatusChange(user._id, user.status)}
-                >
-                  {user.status === "ACTIVE" ? "Block" : "Unblock"}
-                </DropdownItem>
-                <DropdownItem
-                  className="text-danger-500"
-                  color="danger"
-                  onClick={() => deleteUser({ id: user._id })}
-                >
-                  Delete
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+          <div className="relative flex items-center gap-2">
+            <Tooltip content="Edit user">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <AdminModal user={user} />
+              </span>
+            </Tooltip>
+            <Tooltip color="danger" content="Delete user">
+              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                <Trash2 onClick={() => removeAdmin({ id: user._id })} />
+              </span>
+            </Tooltip>
           </div>
         );
       default:
@@ -133,15 +121,7 @@ export default function AdminsTable() {
     }
   }, []);
 
-  const { mutate: changeStatus } = useUserStatusChanged();
-  const { mutate: deleteUser } = useDeleteUser();
-
-  const handleUserStatusChange = (id: string, status: string) => {
-    changeStatus({
-      id,
-      status: status === "ACTIVE" ? "BLOCKED" : "ACTIVE",
-    });
-  };
+  const { mutate: removeAdmin } = useRemoveAdmin();
 
   return (
     <Table

@@ -37,7 +37,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 const columns = [
   { name: "NAME", uid: "name" },
   { name: "PHONE", uid: "mobileNumber" },
-  { name: "ROLE", uid: "role" },
+  { name: "EMAIL", uid: "email" },
   { name: "MEMBERSHIP", uid: "membership" },
   { name: "STATUS", uid: "status" },
   { name: "ACTIONS", uid: "actions" },
@@ -48,7 +48,7 @@ export default function UsersTable() {
   const rowsPerPage = 10;
 
   const { data, isLoading, refetch } = useGetUsers(
-    `?page=${page}&limit=${rowsPerPage}&isDeleted=false`,
+    `?page=${page}&limit=${rowsPerPage}&role=USER&isDeleted=false`,
   );
   const users = (data?.data?.data as IUser[]) ?? [];
   const count = data?.data?.count;
