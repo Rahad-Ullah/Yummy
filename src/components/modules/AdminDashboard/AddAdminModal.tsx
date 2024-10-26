@@ -17,16 +17,16 @@ import YMForm from "../../form/YMForm";
 import YMInput from "../../form/YMInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import updateUserSchema from "@/src/schemas/updateUser.schema";
 import { useState } from "react";
 import { uploadToImgBB } from "@/src/services/UserService";
-import { useUpdateAdmin } from "@/src/hooks/admin.hook";
+import { useAddAdmin, useUpdateAdmin } from "@/src/hooks/admin.hook";
+import addUserSchema from "@/src/schemas/addUser.schema";
 
-export default function AdminModal({ user }: { user: IUser }) {
+export default function AddAdminModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [file, setFile] = useState<File | null>(null);
 
-  const { mutate: updateAdmin } = useUpdateAdmin();
+  const { mutate: addAdmin } = useAddAdmin();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -36,14 +36,12 @@ export default function AdminModal({ user }: { user: IUser }) {
       // Prepare user data with the uploaded image URL
       const userData = {
         ...data,
-        profilePhoto: profilePhotoUrl || user.profilePhoto,
+        profilePhoto: profilePhotoUrl || null,
       };
-
-      updateAdmin({ data: userData, id: user._id });
-  
-
-      // Proceed with your API call or submission logic
+      console.log(userData);
+      addAdmin({ data: userData });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error("Error submitting form:", error);
     }
   };
@@ -51,42 +49,46 @@ export default function AdminModal({ user }: { user: IUser }) {
   return (
     <>
       {/* modal trigger */}
-      <PencilLine onClick={onOpen} />
+      <Button onPress={onOpen} color="warning">
+        Add Admin
+      </Button>
 
-      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        backdrop="blur"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        scrollBehavior="outside"
+      >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col items-center gap-1">
-                Update Profile
+                Add Admin
               </ModalHeader>
-              <YMForm
-                defaultValues={{ ...user, bio: "" }}
-                resolver={zodResolver(updateUserSchema)}
-                onSubmit={onSubmit}
-              >
-                <ModalBody>
-                  <div className="py-3">
+              <YMForm resolver={zodResolver(addUserSchema)} onSubmit={onSubmit}>
+                <ModalBody className="gap-5">
+                  <div>
                     <YMInput label="Name" name="name" size="sm" />
                   </div>
-                  <div className="py-3">
+                  <div>
                     <YMInput label="Email" name="email" size="sm" />
                   </div>
-                  <div className="py-3">
+                  <div>
+                    <YMInput label="Password" name="password" size="sm" />
+                  </div>
+                  <div>
                     <YMInput
                       label="Mobile Number"
                       name="mobileNumber"
                       size="sm"
                     />
                   </div>
-                  <div className="py-3">
-                    <YMInput label="Bio" name="bio" size="sm" type="text" />
-                  </div>
-                  <div className="py-3">
+                  <div>
                     <Input
                       label="Profile Photo"
                       labelPlacement="outside-left"
                       type="file"
+                      accept="image/*"
                       onChange={(event) => {
                         const file = event.target.files?.[0];
 
@@ -102,7 +104,7 @@ export default function AdminModal({ user }: { user: IUser }) {
                     Cancel
                   </Button>
                   <Button color="warning" type="submit">
-                    Update
+                    Add
                   </Button>
                 </ModalFooter>
               </YMForm>

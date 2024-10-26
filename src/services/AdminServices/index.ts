@@ -12,11 +12,21 @@ export const getAdmins = async (query: string) => {
   }
 };
 
+export const addAdmin = async (payload: FieldValues) => {
+  try {
+    const data = await axiosInstance.post(`/admins/create-admin`, payload.data);
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
 export const updateAdmin = async (payload: FieldValues) => {
   try {
     const data = await axiosInstance.patch(
       `/admins/${payload.id}`,
-      payload.data,
+      payload.data
     );
 
     return data;

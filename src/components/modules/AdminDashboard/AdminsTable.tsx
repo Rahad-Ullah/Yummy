@@ -19,7 +19,7 @@ import {
 import { IUser } from "@/src/types";
 import { Trash2 } from "lucide-react";
 import { useGetAdmins, useRemoveAdmin } from "@/src/hooks/admin.hook";
-import AdminModal from "./AdminModal";
+import AdminModal from "./UpdateAdminModal";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ACTIVE: "success",
