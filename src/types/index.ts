@@ -23,7 +23,7 @@ export interface IRecipe {
   content: string;
   upvote: number;
   downvote: number;
-  user: string;
+  user: any;
   type: "BASIC" | "PREMIUM";
   status: "PUBLISHED" | "UNPUBLISHED";
   isDeleted: boolean;
