@@ -17,9 +17,10 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { IRecipe } from "@/src/types";
-import { Trash2 } from "lucide-react";
+import { PencilLine, Trash2 } from "lucide-react";
 import { useRemoveAdmin } from "@/src/hooks/admin.hook";
 import { useGetRecipes } from "@/src/hooks/recipe.hook";
+import Link from "next/link";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ACTIVE: "success",
@@ -105,7 +106,9 @@ export default function RecipesTable() {
             <div className="relative flex items-center gap-2">
               <Tooltip content="Edit post">
                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                  {/* <AdminModal user={post} /> */}
+                  <Link href={`/dashboard/recipes/edit/${post._id}`}>
+                    <PencilLine />
+                  </Link>
                 </span>
               </Tooltip>
               <Tooltip color="danger" content="Delete post">
