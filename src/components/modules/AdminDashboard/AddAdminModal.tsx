@@ -1,7 +1,6 @@
 /* eslint-disable import/order */
 "use client";
 
-import { IUser } from "@/src/types";
 import {
   Modal,
   ModalContent,
@@ -12,14 +11,13 @@ import {
   useDisclosure,
   Input,
 } from "@nextui-org/react";
-import { PencilLine } from "lucide-react";
 import YMForm from "../../form/YMForm";
 import YMInput from "../../form/YMInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { uploadToImgBB } from "@/src/services/UserService";
-import { useAddAdmin, useUpdateAdmin } from "@/src/hooks/admin.hook";
+import { useAddAdmin } from "@/src/hooks/admin.hook";
 import addUserSchema from "@/src/schemas/addUser.schema";
 
 export default function AddAdminModal() {
@@ -38,7 +36,7 @@ export default function AddAdminModal() {
         ...data,
         profilePhoto: profilePhotoUrl || null,
       };
-      console.log(userData);
+
       addAdmin({ data: userData });
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -49,15 +47,15 @@ export default function AddAdminModal() {
   return (
     <>
       {/* modal trigger */}
-      <Button onPress={onOpen} color="warning">
+      <Button color="warning" onPress={onOpen}>
         Add Admin
       </Button>
 
       <Modal
         backdrop="blur"
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
         scrollBehavior="outside"
+        onOpenChange={onOpenChange}
       >
         <ModalContent>
           {(onClose) => (
@@ -85,10 +83,10 @@ export default function AddAdminModal() {
                   </div>
                   <div>
                     <Input
+                      accept="image/*"
                       label="Profile Photo"
                       labelPlacement="outside-left"
                       type="file"
-                      accept="image/*"
                       onChange={(event) => {
                         const file = event.target.files?.[0];
 

@@ -1,8 +1,10 @@
+/* eslint-disable import/order */
 import { FieldValues } from "react-hook-form";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
 import envConfig from "@/src/config/envConfig";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const getUsers = async (query: string) => {
   try {
@@ -20,6 +22,28 @@ export const changeUserStatus = async (payload: FieldValues) => {
       `/users/change-status/${payload.id}`,
       { status: payload.status }
     );
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
+export const updateUser = async (payload: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/profile/edit/${payload.id}`,
+      payload.data,
+      {
+        headers: {
+          useRefreshToken: true,
+        },
+      }
+    );
+
+    if (data.success) {
+      Cookies.set("accessToken", data?.data?.accessToken);
+    }
 
     return data;
   } catch (error: any) {
