@@ -55,7 +55,7 @@ const ProfilePage = () => {
           <div className="">
             <img
               alt="profile-img"
-              className="rounded-full p-6 w-60 mx-auto"
+              className="rounded-full p-2 w-60 mx-auto shadow-2xl dark:shadow-default-300"
               src={
                 (user?.profilePhoto as string) ||
                 "https://t4.ftcdn.net/jpg/01/24/65/69/360_F_124656969_x3y8YVzvrqFZyv3YLWNo6PJaC88SYxqM.jpg"
