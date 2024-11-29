@@ -6,7 +6,7 @@ const updateUserSchema = z.object({
   mobileNumber: z
     .string()
     .regex(/^\d{11}$/, "Please enter a valid mobile number"),
-  bio: z.string().optional(),
+  bio: z.string().nullable().optional(),
   profilePhoto: z.string().optional(),
 });
 

@@ -5,7 +5,7 @@ import YMForm from "@/src/components/form/YMForm";
 import YMInput from "@/src/components/form/YMInput";
 import Loading from "@/src/components/UI/Loading";
 import { useUser } from "@/src/context/user.provider";
-import { useUpdateUser } from "@/src/hooks/user.hook";
+import { useUpdateProfile } from "@/src/hooks/user.hook";
 import updateUserSchema from "@/src/schemas/updateUser.schema";
 import { uploadToImgBB } from "@/src/services/UserService";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +19,9 @@ const ProfilePage = () => {
   const [file, setFile] = useState<File | null>(null);
   const { user, setIsLoading: setUserLoading } = useUser();
 
-  const { mutate: updateUser, isPending } = useUpdateUser();
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
 
+  // form submit handler
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       // Upload the file to ImgBB and get the URL
@@ -30,16 +31,15 @@ const ProfilePage = () => {
       const userData = {
         ...data,
         profilePhoto: profilePhotoUrl || user?.profilePhoto,
+        bio: data.bio || "",
       };
 
-      updateUser(
-        { id: user?._id, data: userData },
-        {
-          onSuccess: () => {
-            setUserLoading(true);
-          },
-        }
-      );
+      // call updateProfile mutation
+      updateProfile(userData, {
+        onSuccess: () => {
+          setUserLoading(true);
+        },
+      });
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error submitting form:", error);

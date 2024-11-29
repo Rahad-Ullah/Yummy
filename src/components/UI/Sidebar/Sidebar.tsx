@@ -27,6 +27,7 @@ export default function Sidebar() {
 
   const pathname = usePathname();
   const { user } = useUser();
+
   const { setIsLoading: setUserLoading } = useUser();
 
   useEffect(() => {

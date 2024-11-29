@@ -5,7 +5,7 @@ import {
   changeUserStatus,
   deleteUser,
   getUsers,
-  updateUser,
+  updateProfile,
 } from "../services/UserService";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
@@ -33,13 +33,13 @@ export const useUserStatusChanged = () => {
   });
 };
 
-export const useUpdateUser = () => {
+export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation<any, Error, FieldValues>({
-    mutationFn: async (data) => await updateUser(data),
+    mutationFn: async (data) => await updateProfile(data),
     onSuccess: () => {
-      toast.success("User updated successfully.");
+      toast.success("Profile updated successfully.");
       queryClient.invalidateQueries({ queryKey: ["USERS"] });
     },
     onError: (error) => {

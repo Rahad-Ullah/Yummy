@@ -1,19 +1,12 @@
 "use server";
 
 import RecipeCard from "@/src/components/modules/Home/RecipeCard";
-import envConfig from "@/src/config/envConfig";
+import { getRecipes } from "@/src/services/RecipeService";
 import { IRecipe } from "@/src/types";
 
 const Recipes = async () => {
-  const res = await fetch(`${envConfig.baseApi}/recipes`);
-
-  // hadle request fail
-  if (!res.ok) {
-    throw new Error("Failed to fetch recipes");
-  }
-
-  // data from the response
-  const { data: recipes } = await res.json();
+  const { data } = await getRecipes(`?isDeleted=false`);
+  const recipes = data?.data;
 
   // handle if no recipes are returned
   if (!recipes || recipes.length === 0) {

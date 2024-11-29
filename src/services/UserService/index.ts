@@ -29,17 +29,13 @@ export const changeUserStatus = async (payload: FieldValues) => {
   }
 };
 
-export const updateUser = async (payload: FieldValues) => {
+export const updateProfile = async (payload: FieldValues) => {
   try {
-    const { data } = await axiosInstance.patch(
-      `/profile/edit/${payload.id}`,
-      payload.data,
-      {
-        headers: {
-          useRefreshToken: true,
-        },
-      }
-    );
+    const { data } = await axiosInstance.patch(`/profile/edit`, payload, {
+      headers: {
+        useRefreshToken: true,
+      },
+    });
 
     if (data.success) {
       Cookies.set("accessToken", data?.data?.accessToken);
