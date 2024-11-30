@@ -14,6 +14,16 @@ export const getRecipes = async (query: string) => {
   }
 };
 
+export const getSingleRecipe = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.get(`/recipes/${id}`);
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
 export const createRecipe = async (payload: FieldValues) => {
   try {
     const { data } = await axiosInstance.post(
@@ -26,6 +36,20 @@ export const createRecipe = async (payload: FieldValues) => {
     throw new Error(error?.response?.data?.message);
   }
 };
+
+export const updateRecipe = async (payload: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/recipes/${payload.id}`,
+      payload.data
+    );
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
 
 // export const deleteRecipe = async (payload: FieldValues) => {
 //   try {

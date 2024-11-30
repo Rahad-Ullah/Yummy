@@ -8,20 +8,23 @@ import { addRecipeValidationSchema } from "@/src/schemas/recipe.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Input } from "@nextui-org/input";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import QuillEditor from "@/src/components/UI/QuillEditor/QuillEditor";
 import { uploadToImgBB } from "@/src/services/RecipeService";
-import { useCreateRecipe } from "@/src/hooks/recipe.hook";
+import { useGetSingleRecipe, useUpdateRecipe } from "@/src/hooks/recipe.hook";
 import Loading from "@/src/components/UI/Loading";
 
-const EditRecipe = () => {
+const EditRecipe = ({ params }: any) => {
+  const { data, isFetching } = useGetSingleRecipe(params.id);
+  const recipe = data?.data;
+
   // state for image file
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(recipe?.image);
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the file input
 
   // state for editor content
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(recipe?.content);
 
   // handle image upload
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,28 +55,38 @@ const EditRecipe = () => {
     }
   };
 
-  const { mutate: createRecipe, isPending } = useCreateRecipe();
+  // update state after loading
+  useEffect(() => {
+    setPreview(recipe?.image);
+    setContent(recipe?.content);
+  }, [isFetching]);
+
+  const { mutate: updateRecipe, isPending } = useUpdateRecipe();
 
   // submit handler
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       // Upload the file to ImgBB and get the URL
-      const recipeImageUrl = file ? await uploadToImgBB(file) : "";
+      const recipeImageUrl = file ? await uploadToImgBB(file) : recipe?.image;
 
       // prepare the recipe data
       const recipeData = { ...data, content, image: recipeImageUrl };
 
-      createRecipe(recipeData);
+      updateRecipe({ id: recipe?._id, data: recipeData });
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
     }
   };
-  return (
+
+  return isFetching ? (
+    <Loading />
+  ) : (
     <div className="w-full p-6 md:p-8 mt-6 rounded-3xl border">
       {isPending && <Loading />}
       <h3 className="mb-6 text-2xl font-medium">Edit Recipe</h3>
       <YMForm
+        defaultValues={recipe}
         resolver={zodResolver(addRecipeValidationSchema)}
         onSubmit={onSubmit}
       >

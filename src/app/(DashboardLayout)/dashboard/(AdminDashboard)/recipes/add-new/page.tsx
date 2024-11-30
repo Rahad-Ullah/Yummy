@@ -41,18 +41,16 @@ const AddNewRecipe = () => {
 
   // cancel image upload
   const handleCancel = () => {
-    if (confirm("Are you sure you want to cancel the upload?")) {
-      setFile(null);
-      setPreview(null);
+    setFile(null);
+    setPreview(null);
 
-      // Reset the file input field
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+    // Reset the file input field
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   };
 
-  const { mutate: createRecipe, isPending } = useCreateRecipe();
+  const { mutate: createRecipe, isPending, isSuccess } = useCreateRecipe();
 
   // submit handler
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -64,6 +62,13 @@ const AddNewRecipe = () => {
       const recipeData = { ...data, content, image: recipeImageUrl };
 
       createRecipe(recipeData);
+
+      // reset form after submission
+      if (isSuccess) {
+        handleCancel();
+        setContent("");
+        data.title = "";
+      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);

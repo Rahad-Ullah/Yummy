@@ -41,7 +41,7 @@ export default function RecipesTable() {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
 
-  const { data, isLoading, refetch } = useGetRecipes(
+  const { data, isFetching, refetch } = useGetRecipes(
     `?page=${page}&limit=${rowsPerPage}&isDeleted=false`
   );
   const users = (data?.data?.data as IRecipe[]) ?? [];
@@ -50,7 +50,7 @@ export default function RecipesTable() {
   // Refetch data when page changes
   React.useEffect(() => {
     refetch();
-  }, [page, refetch]);
+  }, [page]);
 
   const pages = React.useMemo(() => {
     return count ? Math.ceil(count / rowsPerPage) : 0;
@@ -159,7 +159,7 @@ export default function RecipesTable() {
       <TableBody
         items={users ?? []}
         loadingContent={<Spinner />}
-        loadingState={isLoading || count === 0 ? "loading" : "idle"}
+        loadingState={isFetching || count === 0 ? "loading" : "idle"}
       >
         {(item) => (
           <TableRow key={item._id}>
