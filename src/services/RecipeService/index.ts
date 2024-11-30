@@ -14,11 +14,11 @@ export const getRecipes = async (query: string) => {
   }
 };
 
-export const changeUserStatus = async (payload: FieldValues) => {
+export const createRecipe = async (payload: FieldValues) => {
   try {
-    const { data } = await axiosInstance.patch(
-      `/users/change-status/${payload.id}`,
-      { status: payload.status }
+    const { data } = await axiosInstance.post(
+      `/recipes/create-recipe`,
+      payload
     );
 
     return data;
@@ -27,15 +27,15 @@ export const changeUserStatus = async (payload: FieldValues) => {
   }
 };
 
-export const deleteUser = async (payload: FieldValues) => {
-  try {
-    const { data } = await axiosInstance.delete(`/users/${payload.id}`);
+// export const deleteRecipe = async (payload: FieldValues) => {
+//   try {
+//     const { data } = await axiosInstance.delete(`/users/${payload.id}`);
 
-    return data;
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.message);
-  }
-};
+//     return data;
+//   } catch (error: any) {
+//     throw new Error(error?.response?.data?.message);
+//   }
+// };
 
 export const uploadToImgBB = async (file: File): Promise<string | null> => {
   const formData = new FormData();

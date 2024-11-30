@@ -14,7 +14,7 @@ import { uploadToImgBB } from "@/src/services/RecipeService";
 import { useCreateRecipe } from "@/src/hooks/recipe.hook";
 import Loading from "@/src/components/UI/Loading";
 
-const EditRecipe = () => {
+const AddNewRecipe = () => {
   // state for image file
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -72,7 +72,7 @@ const EditRecipe = () => {
   return (
     <div className="w-full p-6 md:p-8 mt-6 rounded-3xl border">
       {isPending && <Loading />}
-      <h3 className="mb-6 text-2xl font-medium">Edit Recipe</h3>
+      <h3 className="mb-6 text-2xl font-medium">Add Recipe</h3>
       <YMForm
         resolver={zodResolver(addRecipeValidationSchema)}
         onSubmit={onSubmit}
@@ -121,11 +121,11 @@ const EditRecipe = () => {
           size="lg"
           type="submit"
         >
-          Save
+          Submit
         </Button>
       </YMForm>
     </div>
   );
 };
 
-export default EditRecipe;
+export default AddNewRecipe;

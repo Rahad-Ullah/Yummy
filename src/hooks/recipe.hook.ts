@@ -3,12 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
-import {
-  addAdmin,
-  removeAdmin,
-  updateAdmin,
-} from "../services/AdminServices";
-import { getRecipes } from "../services/RecipeService";
+import { createRecipe, getRecipes } from "../services/RecipeService";
 
 /* eslint-disable prettier/prettier */
 export const useGetRecipes = (query: string) => {
@@ -18,14 +13,14 @@ export const useGetRecipes = (query: string) => {
   });
 };
 
-export const useAddAdmin = () => {
+export const useCreateRecipe = () => {
   const queryClient = useQueryClient();
 
   return useMutation<any, Error, FieldValues>({
-    mutationFn: async (data) => await addAdmin(data),
+    mutationFn: async (data) => await createRecipe(data),
     onSuccess: () => {
-      toast.success("Admin created successfully.");
-      queryClient.invalidateQueries({ queryKey: ["ADMINS"] });
+      toast.success("Recipe created successfully.");
+      queryClient.invalidateQueries({ queryKey: ["RECIPES"] });
     },
     onError: (error) => {
       toast.error(error.message);
@@ -33,32 +28,32 @@ export const useAddAdmin = () => {
   });
 };
 
-export const useUpdateAdmin = () => {
-  const queryClient = useQueryClient();
+// export const useUpdateAdmin = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation<any, Error, FieldValues>({
-    mutationFn: async (data) => await updateAdmin(data),
-    onSuccess: () => {
-      toast.success("Admin updated successfully.");
-      queryClient.invalidateQueries({ queryKey: ["ADMINS"] });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
-};
+//   return useMutation<any, Error, FieldValues>({
+//     mutationFn: async (data) => await updateAdmin(data),
+//     onSuccess: () => {
+//       toast.success("Admin updated successfully.");
+//       queryClient.invalidateQueries({ queryKey: ["ADMINS"] });
+//     },
+//     onError: (error) => {
+//       toast.error(error.message);
+//     },
+//   });
+// };
 
-export const useRemoveAdmin = () => {
-  const queryClient = useQueryClient();
+// export const useRemoveAdmin = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation<any, Error, FieldValues>({
-    mutationFn: async (data) => await removeAdmin(data),
-    onSuccess: () => {
-      toast.success("Admin removed successfully.");
-      queryClient.invalidateQueries({ queryKey: ["ADMINS"] });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
-};
+//   return useMutation<any, Error, FieldValues>({
+//     mutationFn: async (data) => await removeAdmin(data),
+//     onSuccess: () => {
+//       toast.success("Admin removed successfully.");
+//       queryClient.invalidateQueries({ queryKey: ["ADMINS"] });
+//     },
+//     onError: (error) => {
+//       toast.error(error.message);
+//     },
+//   });
+// };
