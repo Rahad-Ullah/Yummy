@@ -1,53 +1,106 @@
-# Next.js & NextUI Template
+# Yummy
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+## Introduction
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+**Yummy** is a recipe-sharing platform that connects food enthusiasts, home cooks, and chefs from around the world.
 
-## Technologies Used
+## Project Description
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+**Yummy** allows users to discover, share, and save recipes with ease. From quick weeknight dinners to gourmet meals, users can explore a variety of recipes, upload their own creations, and engage with a community of food lovers.
 
-## How to Use
+### [Live Site](https://yummy-navy.vercel.app)
 
-### Use the template with create-next-app
+```plaintext
+https://yummy-navy.vercel.app
+   ```
 
-To create a new project based on this template using `create-next-app`, run the following command:
+## Features
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+- **User Authentication and Authorization:**
+  Users can sign up and log in using their email and password. Admins have additional powers for managing facilities and bookings.
 
-### Install dependencies
+- **Recipe Management:**
+    Users can create, update, and delete their recipes, adding details such as ingredients, steps, cooking time, and an image.
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+- **Recipe Discovery:**
+  Users can browse through a wide collection of recipes, filter by categories, and search by keywords.
 
-```bash
-npm install
-```
+- **Favorites and Bookmarks:**
+  Users can save their favorite recipes for easy access later.
 
-### Run the development server
+- **Ratings and Reviews:**
+  Users can leave reviews and ratings on recipes to share their experiences and feedback with others.
 
-```bash
-npm run dev
-```
+- **Content Moderation:**
+  Admins have tools to moderate recipes and user-generated content to ensure quality and compliance with platform guidelines.
 
-### Setup pnpm (optional)
+- **Error Handling:**
+  Comprehensive error handling ensures proper responses and messages for validation errors, duplicate entries, and not found routes.
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+- **Authentication Middleware:**
+  Middleware is implemented to protect routes, ensuring that only authenticated users and admins can access their respective routes.
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
+- **Security:**
+  Powerful security system is implemented to protect routes and ensure that only authorized users and admins can access their respective routes.
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+- **Maintainable Codebase:**
+  The codebase is written with clean, well-organized, and documented coding practices. Followed by the industry standard, the codebase is written in structured and organized way.
 
-## License
+## Technology Stack
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+- React
+- Redux
+- TypeScript
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Shadcn UI
+
+## Installation Guideline
+
+Follow the instructions given below to install and run the project locally.
+
+### Prerequisites
+
+- Node.js
+- Code Editor (E.g. Visual Studio Code)
+
+### Installation Steps
+
+1. **Clone the Repository:**
+
+   ```base
+   git clone https://github.com/Rahad-Ullah/Yummy-Client.git
+   ```
+
+2. **Open in a Code Editor:**
+   Open the directory in a code editor like VS Code.
+3. **Install Dependencies:**
+
+   ```markdown
+   npm install
+   ```
+
+4. **Run the project:**
+
+   ```markdown
+   npm run dev
+   ```
+
+### Configuration
+
+1. Create a `.env.local` file in the root directory of the project.
+2. Add these configuration variables in the `.env.local` file.
+   Example:
+   ```bash
+    PORT=5173
+    NEXT_PUBLIC_BASE_API=your_server_url
+    NEXT_PUBLIC_IMGBB_API_KEY=imagebb_key
+   ```
+
+## Usage
+
+Open the website in your browser to explore and share recipes with the Yummy community. Create an account, discover recipes, and connect with fellow food enthusiasts.
+
+## Happy Cooking 🍳
