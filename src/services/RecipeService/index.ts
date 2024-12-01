@@ -50,6 +50,19 @@ export const updateRecipe = async (payload: FieldValues) => {
   }
 };
 
+export const updateRecipeStatus = async (payload: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/recipes/change-status/${payload.id}`,
+      payload.data
+    );
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
 
 export const deleteRecipe = async (payload: FieldValues) => {
   try {
@@ -81,6 +94,7 @@ export const uploadToImgBB = async (file: File): Promise<string | null> => {
     // Return the URL of the uploaded image
     return parsedUrl;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Error uploading to imgBB:", error);
 
     return null;

@@ -23,9 +23,9 @@ import Link from "next/link";
 import { useUser } from "@/src/context/user.provider";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
-  ACTIVE: "success",
+  PUBLISHED: "success",
   BLOCKED: "danger",
-  PREMIUM: "warning",
+  UNPUBLISHED: "warning",
 };
 
 const columns = [
@@ -131,50 +131,57 @@ export default function RecipesTable() {
 
   const { mutate: deleteRecipe } = useDeleteRecipe();
 
-  return count > 0 ? (
-    <Table
-      aria-label="Example table with custom cells"
-      bottomContent={
-        pages > 0 ? (
-          <div className="flex w-full justify-center">
-            <Pagination
-              isCompact
-              showControls
-              showShadow
-              color="primary"
-              page={page}
-              total={pages}
-              onChange={(page) => setPage(page)}
-            />
-          </div>
-        ) : null
-      }
-    >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            className={column.uid === "actions" ? "text-center" : "text-start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        items={users ?? []}
-        loadingContent={<Spinner />}
-        loadingState={isFetching ? "loading" : "idle"}
+  return (
+    <div>
+      <Table
+        aria-label="Example table with custom cells"
+        bottomContent={
+          pages > 0 ? (
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="primary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
+          ) : null
+        }
       >
-        {(item) => (
-          <TableRow key={item._id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
-  ) : (
-    <p className="text-center my-4">No Data Found</p>
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              className={
+                column.uid === "actions" ? "text-center" : "text-start"
+              }
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody
+          items={users ?? []}
+          loadingContent={<Spinner />}
+          loadingState={isFetching ? "loading" : "idle"}
+        >
+          {(item) => (
+            <TableRow key={item._id}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      {count < 1 && (
+        <div>
+          <p className="text-center mt-20">No Data Found</p>
+        </div>
+      )}
+    </div>
   );
 }

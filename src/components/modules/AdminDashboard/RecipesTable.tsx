@@ -14,17 +14,25 @@ import {
   ChipProps,
   Spinner,
   Pagination,
-  Tooltip,
+  Dropdown,
+  DropdownTrigger,
+  Button,
+  DropdownMenu,
+  DropdownItem,
 } from "@nextui-org/react";
 import { IRecipe } from "@/src/types";
-import { PencilLine, Trash2 } from "lucide-react";
-import { useDeleteRecipe, useGetRecipes } from "@/src/hooks/recipe.hook";
+import { Ellipsis } from "lucide-react";
+import {
+  useDeleteRecipe,
+  useGetRecipes,
+  useUpdateRecipeStatus,
+} from "@/src/hooks/recipe.hook";
 import Link from "next/link";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
-  ACTIVE: "success",
+  PUBLISHED: "success",
   BLOCKED: "danger",
-  PREMIUM: "warning",
+  UNPUBLISHED: "warning",
 };
 
 const columns = [
@@ -63,15 +71,17 @@ export default function RecipesTable() {
       switch (columnKey) {
         case "title":
           return (
-            <User
-              avatarProps={{
-                radius: "lg",
-                src: recipe.image as string,
-              }}
-              name={cellValue}
-            >
-              {recipe.title}
-            </User>
+            <Link href={`/recipes/view/${recipe?._id}`}>
+              <User
+                avatarProps={{
+                  radius: "lg",
+                  src: recipe.image as string,
+                }}
+                name={cellValue}
+              >
+                {recipe.title}
+              </User>
+            </Link>
           );
         case "author":
           return (
@@ -102,19 +112,38 @@ export default function RecipesTable() {
           );
         case "actions":
           return (
-            <div className="relative flex items-center gap-2">
-              <Tooltip content="Edit recipe">
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                  <Link href={`/dashboard/recipes/edit/${recipe._id}`}>
-                    <PencilLine />
-                  </Link>
-                </span>
-              </Tooltip>
-              <Tooltip color="danger" content="Delete recipe">
-                <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                  <Trash2 onClick={() => deleteRecipe({ id: recipe._id })} />
-                </span>
-              </Tooltip>
+            <div className="relative flex justify-center items-center gap-2">
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button isIconOnly size="sm" variant="light">
+                    <Ellipsis className="text-default-400" />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu>
+                  <DropdownItem
+                    onClick={() =>
+                      updateRecipeStatus({
+                        id: recipe?._id,
+                        data: {
+                          status:
+                            recipe?.status === "PUBLISHED"
+                              ? "UNPUBLISHED"
+                              : "PUBLISHED",
+                        },
+                      })
+                    }
+                  >
+                    {recipe?.status === "PUBLISHED" ? "Unpublish" : "Publish"}
+                  </DropdownItem>
+                  <DropdownItem
+                    className="text-danger-500"
+                    color="danger"
+                    onClick={() => deleteRecipe({ id: recipe._id })}
+                  >
+                    Delete
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </div>
           );
         default:
@@ -125,49 +154,59 @@ export default function RecipesTable() {
   );
 
   const { mutate: deleteRecipe } = useDeleteRecipe();
+  const { mutate: updateRecipeStatus } = useUpdateRecipeStatus();
 
   return (
-    <Table
-      aria-label="Example table with custom cells"
-      bottomContent={
-        pages > 0 ? (
-          <div className="flex w-full justify-center">
-            <Pagination
-              isCompact
-              showControls
-              showShadow
-              color="primary"
-              page={page}
-              total={pages}
-              onChange={(page) => setPage(page)}
-            />
-          </div>
-        ) : null
-      }
-    >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            className={column.uid === "actions" ? "text-center" : "text-start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody
-        items={users ?? []}
-        loadingContent={<Spinner />}
-        loadingState={isFetching || count === 0 ? "loading" : "idle"}
+    <div>
+      <Table
+        aria-label="Example table with custom cells"
+        bottomContent={
+          pages > 0 ? (
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="primary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
+          ) : null
+        }
       >
-        {(item) => (
-          <TableRow key={item._id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              className={
+                column.uid === "actions" ? "text-center" : "text-start"
+              }
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody
+          items={users ?? []}
+          loadingContent={<Spinner />}
+          loadingState={isFetching || count === 0 ? "loading" : "idle"}
+        >
+          {(item) => (
+            <TableRow key={item._id}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      {count < 1 && (
+        <div>
+          <p className="text-center mt-20">No Data Found</p>
+        </div>
+      )}
+    </div>
   );
 }

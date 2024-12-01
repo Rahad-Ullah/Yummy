@@ -9,6 +9,7 @@ import {
   getRecipes,
   getSingleRecipe,
   updateRecipe,
+  updateRecipeStatus,
 } from "../services/RecipeService";
 
 /* eslint-disable prettier/prettier */
@@ -48,6 +49,21 @@ export const useUpdateRecipe = () => {
     mutationFn: async (data) => await updateRecipe(data),
     onSuccess: () => {
       toast.success("Recipe updated successfully.");
+      queryClient.invalidateQueries({ queryKey: ["RECIPES"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useUpdateRecipeStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<any, Error, FieldValues>({
+    mutationFn: async (data) => await updateRecipeStatus(data),
+    onSuccess: () => {
+      toast.success("Recipe status updated successfully.");
       queryClient.invalidateQueries({ queryKey: ["RECIPES"] });
     },
     onError: (error) => {
