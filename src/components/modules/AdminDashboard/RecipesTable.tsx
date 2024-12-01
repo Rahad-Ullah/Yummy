@@ -51,7 +51,7 @@ export default function RecipesTable() {
   const { data, isFetching, refetch } = useGetRecipes(
     `?page=${page}&limit=${rowsPerPage}&isDeleted=false`
   );
-  const users = (data?.data?.data as IRecipe[]) ?? [];
+  const recipes = (data?.data?.data as IRecipe[]) ?? [];
   const count = data?.data?.count;
 
   // Refetch data when page changes
@@ -189,7 +189,7 @@ export default function RecipesTable() {
           )}
         </TableHeader>
         <TableBody
-          items={users ?? []}
+          items={recipes ?? []}
           loadingContent={<Spinner />}
           loadingState={isFetching || count === 0 ? "loading" : "idle"}
         >

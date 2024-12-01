@@ -33,6 +33,7 @@
     "@types/js-cookie": "^3.0.6",
     "axios": "^1.7.7",
     "clsx": "2.1.1",
+    "dompurify": "^3.2.2",
     "framer-motion": "~11.1.1",
     "i18next": "^23.16.2",
     "intl-messageformat": "^10.5.0",
@@ -52,6 +53,7 @@
     "zustand": "^5.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@types/node": "20.5.7",
     "@types/quill": "^2.0.14",
     "@types/react": "18.3.3",
