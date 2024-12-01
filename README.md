@@ -6,7 +6,7 @@
 
 ## Project Description
 
-**Yummy** allows users to discover, share, and save recipes with ease. From quick weeknight dinners to gourmet meals, users can explore a variety of recipes, upload their own creations, and engage with a community of food lovers.
+**Yummy** allows users to discover and share recipes with ease. From quick weeknight dinners to gourmet meals, users can explore a variety of recipes, upload their own creations, and engage with a community of food lovers.
 
 ### [Live Site](https://yummy-navy.vercel.app)
 
@@ -24,9 +24,6 @@ https://yummy-navy.vercel.app
 
 - **Recipe Discovery:**
   Users can browse through a wide collection of recipes, filter by categories, and search by keywords.
-
-- **Favorites and Bookmarks:**
-  Users can save their favorite recipes for easy access later.
 
 - **Ratings and Reviews:**
   Users can leave reviews and ratings on recipes to share their experiences and feedback with others.
@@ -48,14 +45,13 @@ https://yummy-navy.vercel.app
 
 ## Technology Stack
 
-- React
-- Redux
+- Next.js
 - TypeScript
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
-- Shadcn UI
+- Next UI
 
 ## Installation Guideline
 
