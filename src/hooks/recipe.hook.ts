@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
 import {
   createRecipe,
+  deleteRecipe,
   getRecipes,
   getSingleRecipe,
   updateRecipe,
@@ -55,17 +56,17 @@ export const useUpdateRecipe = () => {
   });
 };
 
-// export const useRemoveAdmin = () => {
-//   const queryClient = useQueryClient();
+export const useDeleteRecipe = () => {
+  const queryClient = useQueryClient();
 
-//   return useMutation<any, Error, FieldValues>({
-//     mutationFn: async (data) => await removeAdmin(data),
-//     onSuccess: () => {
-//       toast.success("Admin removed successfully.");
-//       queryClient.invalidateQueries({ queryKey: ["ADMINS"] });
-//     },
-//     onError: (error) => {
-//       toast.error(error.message);
-//     },
-//   });
-// };
+  return useMutation<any, Error, FieldValues>({
+    mutationFn: async (data) => await deleteRecipe(data),
+    onSuccess: () => {
+      toast.success("Recipe deleted successfully.");
+      queryClient.invalidateQueries({ queryKey: ["RECIPES"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};

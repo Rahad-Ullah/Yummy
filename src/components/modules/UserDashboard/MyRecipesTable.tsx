@@ -20,6 +20,7 @@ import { IRecipe } from "@/src/types";
 import { PencilLine, Trash2 } from "lucide-react";
 import { useDeleteRecipe, useGetRecipes } from "@/src/hooks/recipe.hook";
 import Link from "next/link";
+import { useUser } from "@/src/context/user.provider";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ACTIVE: "success",
@@ -40,8 +41,10 @@ export default function RecipesTable() {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
 
+  const { user } = useUser();
+
   const { data, isFetching, refetch } = useGetRecipes(
-    `?page=${page}&limit=${rowsPerPage}&isDeleted=false`
+    `?page=${page}&limit=${rowsPerPage}&isDeleted=false&user=${user?._id}`
   );
   const users = (data?.data?.data as IRecipe[]) ?? [];
   const count = data?.data?.count;
@@ -63,15 +66,17 @@ export default function RecipesTable() {
       switch (columnKey) {
         case "title":
           return (
-            <User
-              avatarProps={{
-                radius: "lg",
-                src: recipe.image as string,
-              }}
-              name={cellValue}
-            >
-              {recipe.title}
-            </User>
+            <Link href={`/recipes/view/${recipe?._id}`}>
+              <User
+                avatarProps={{
+                  radius: "lg",
+                  src: recipe.image as string,
+                }}
+                name={cellValue}
+              >
+                {recipe.title}
+              </User>
+            </Link>
           );
         case "author":
           return (
@@ -126,7 +131,7 @@ export default function RecipesTable() {
 
   const { mutate: deleteRecipe } = useDeleteRecipe();
 
-  return (
+  return count > 0 ? (
     <Table
       aria-label="Example table with custom cells"
       bottomContent={
@@ -158,7 +163,7 @@ export default function RecipesTable() {
       <TableBody
         items={users ?? []}
         loadingContent={<Spinner />}
-        loadingState={isFetching || count === 0 ? "loading" : "idle"}
+        loadingState={isFetching ? "loading" : "idle"}
       >
         {(item) => (
           <TableRow key={item._id}>
@@ -169,5 +174,7 @@ export default function RecipesTable() {
         )}
       </TableBody>
     </Table>
+  ) : (
+    <p className="text-center my-4">No Data Found</p>
   );
 }

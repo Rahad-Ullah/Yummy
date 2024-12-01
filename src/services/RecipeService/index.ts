@@ -51,15 +51,15 @@ export const updateRecipe = async (payload: FieldValues) => {
 };
 
 
-// export const deleteRecipe = async (payload: FieldValues) => {
-//   try {
-//     const { data } = await axiosInstance.delete(`/users/${payload.id}`);
+export const deleteRecipe = async (payload: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.delete(`/recipes/${payload.id}`);
 
-//     return data;
-//   } catch (error: any) {
-//     throw new Error(error?.response?.data?.message);
-//   }
-// };
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
 
 export const uploadToImgBB = async (file: File): Promise<string | null> => {
   const formData = new FormData();
