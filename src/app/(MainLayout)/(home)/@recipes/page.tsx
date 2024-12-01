@@ -14,8 +14,8 @@ const Recipes = async () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="w-11/12 max-w-screen-xl mx-auto py-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {recipes?.map((item: IRecipe) => (
           <RecipeCard key={item._id} recipe={item} />
         ))}

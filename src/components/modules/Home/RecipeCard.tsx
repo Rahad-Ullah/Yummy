@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 "use client";
 
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
@@ -5,6 +6,7 @@ import Image from "next/image";
 import { Rating, Star } from "@smastrom/react-rating";
 
 import "@smastrom/react-rating/style.css";
+import Link from "next/link";
 import { IRecipe } from "@/src/types";
 
 const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
@@ -15,18 +17,18 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   };
 
   return (
-    <div>
-      <Card className="py-4">
-        <CardHeader className="pt-0 pb-4 flex-col items-start">
+    <Link href={`/recipes/view/${recipe?._id}`}>
+      <Card className="">
+        <CardHeader className=" flex-col items-start">
           <Image
             alt="Card background"
-            className="object-cover rounded-xl"
+            className="object-cover rounded-xl w-full h-64"
             height={200}
             src={recipe.image}
             width={270}
           />
         </CardHeader>
-        <CardBody className="overflow-visible py-0">
+        <CardBody className="overflow-visible">
           <h4 className="font-bold text-2xl">{recipe.title}</h4>
           <Rating
             readOnly
@@ -36,7 +38,7 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
           />
         </CardBody>
       </Card>
-    </div>
+    </Link>
   );
 };
 
