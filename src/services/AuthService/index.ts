@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
+import { redirect } from "next/navigation";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
 
@@ -41,6 +42,7 @@ export const registerUser = async (userData: FieldValues) => {
 export const logout = async () => {
   cookies().delete("accessToken");
   cookies().delete("refreshToken");
+  redirect("/login");
 };
 
 // get current user from session

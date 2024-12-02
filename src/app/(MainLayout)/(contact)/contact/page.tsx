@@ -13,6 +13,7 @@ import Image from "next/image";
 import Container from "@/src/components/UI/Container";
 import { contactValidationSchema } from "@/src/schemas/contact.schema";
 import { toast } from "sonner";
+import { Textarea } from "@nextui-org/input";
 
 const ContactPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -62,11 +63,10 @@ const ContactPage = () => {
                 <YMInput label="Subject" name="subject" type="text" />
               </div>
               <div className="py-3">
-                <YMInput label="Message" name="message" type="text" />
+                <Textarea label="Message" variant="bordered" />
               </div>
               <Button
-                className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
-                size="lg"
+                className="mt-3 w-full rounded-md bg-default-900 font-semibold text-default"
                 type="submit"
               >
                 Submit

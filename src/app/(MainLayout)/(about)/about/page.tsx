@@ -12,7 +12,7 @@ const AboutPage = () => {
             About Us
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 pt-2 max-w-screen-lg">
-            Yummy is bringing recipe sharing back to life.
+            Yummy is bringing recipe sharing back to life with ease.
           </h1>
           <p className="font-medium md:text-lg">
             Stop struggling with outdated platforms. Its time to start savoring
