@@ -9,6 +9,7 @@ import axiosInstance from "@/src/lib/AxiosInstance";
 
 // Login service
 export const loginUser = async (userData: FieldValues) => {
+
   try {
     const { data } = await axiosInstance.post("/auth/login", userData);
 
@@ -19,6 +20,11 @@ export const loginUser = async (userData: FieldValues) => {
 
     return data;
   } catch (error: any) {
+    // const errorMessage =
+    //   error?.response?.data?.message || "An unexpected error occurred.";
+
+    // return error?.response?.data;
+
     throw new Error(error?.response?.data?.message);
   }
 };

@@ -87,7 +87,9 @@ export default function AddAdminModal() {
                       label="Profile Photo"
                       labelPlacement="outside-left"
                       type="file"
-                      onChange={(event) => {
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
                         const file = event.target.files?.[0];
 
                         if (file) {

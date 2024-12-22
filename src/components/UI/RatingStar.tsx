@@ -3,8 +3,8 @@ import { Rating, Star } from "@smastrom/react-rating";
 const RatingStar = ({ rating }: { rating: number }) => {
   const myStyles = {
     itemShapes: Star,
-    activeFillColor: "#ffb700",
-    inactiveFillColor: "#fbf1a9",
+    activeFillColor: "#ff9900",
+    inactiveFillColor: "#ffd699",
   };
 
   return (

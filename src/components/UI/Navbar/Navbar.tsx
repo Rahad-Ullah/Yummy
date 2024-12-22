@@ -66,7 +66,9 @@ export const Navbar = () => {
             <NavbarDropDown />
           ) : (
             <Link href="/login">
-              <Button variant="shadow">Login</Button>
+              <Button variant="shadow" color="warning">
+                Login
+              </Button>
             </Link>
           )}
         </NavbarItem>

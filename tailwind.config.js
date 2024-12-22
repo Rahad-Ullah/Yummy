@@ -16,5 +16,20 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [nextui(), require("@tailwindcss/typography")],
+  plugins: [
+    nextui({
+      themes: {
+        dark: {
+          colors: {
+            primary: {
+              DEFAULT: "#BEF264",
+              foreground: "#000000",
+            },
+            focus: "#ff9900",
+          },
+        },
+      },
+    }),
+    require("@tailwindcss/typography"),
+  ],
 };

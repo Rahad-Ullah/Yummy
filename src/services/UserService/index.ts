@@ -77,6 +77,7 @@ export const uploadToImgBB = async (file: File): Promise<string | null> => {
     // Return the URL of the uploaded image
     return parsedUrl;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Error uploading to imgBB:", error);
 
     return null;

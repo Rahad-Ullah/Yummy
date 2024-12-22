@@ -31,14 +31,21 @@ const NavbarDropDown = () => {
         <Avatar src={user?.profilePhoto as string} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem onClick={() => handleNavigation("/dashboard")}>
+        <DropdownItem
+          key={"Dashboard"}
+          onClick={() => handleNavigation("/dashboard")}
+        >
           Dashboard
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/dashboard/profile")}>
+        <DropdownItem
+          key={"Profile"}
+          onClick={() => handleNavigation("/dashboard/profile")}
+        >
           Profile
         </DropdownItem>
-        <DropdownItem>Settings</DropdownItem>
+        <DropdownItem key={"Settings"}>Settings</DropdownItem>
         <DropdownItem
+          key={"Logout"}
           className="text-danger-500"
           color="danger"
           onClick={handleLogout}
