@@ -5,30 +5,37 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { toast } from "sonner";
 
 import Loading from "@/src/components/UI/Loading";
 import YMForm from "@/src/components/form/YMForm";
 import YMInput from "@/src/components/form/YMInput";
 import { loginValidationSchema } from "@/src/schemas/login.schema";
-import { useUserLogin } from "@/src/hooks/auth.hook";
 import { useUser } from "@/src/context/user.provider";
 import { loginUser } from "@/src/services/AuthService";
 
 const LoginPage = () => {
+  const [isPending, setIsPending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   const { setIsLoading: setUserLoading } = useUser();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { mutate: handleLogin, isPending, isSuccess } = useUserLogin();
+  // const { mutate: handleLogin, isPending, isSuccess } = useUserLogin();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const res = await handleLogin(data);
+    setIsPending(true);
+    const res = await loginUser(data);
 
-    // if (!res?.success) {
-    //   toast.error(res?.message);
-    // }
+    if (res?.success) {
+      toast.success(res?.message);
+      setIsPending(false);
+      setIsSuccess(true);
+    }
+    if (!res?.success) {
+      toast.error(res?.message);
+      setIsPending(false);
+    }
     setUserLoading(true);
   };
 

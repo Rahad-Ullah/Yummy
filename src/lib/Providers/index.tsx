@@ -14,7 +14,16 @@ export interface ProvidersProps {
   themeProps?: ThemeProviderProps;
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false, // Disable retries for queries
+    },
+    mutations: {
+      retry: false, // Disable retries for mutations
+    },
+  },
+});
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();

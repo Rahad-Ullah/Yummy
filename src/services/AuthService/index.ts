@@ -23,9 +23,9 @@ export const loginUser = async (userData: FieldValues) => {
     // const errorMessage =
     //   error?.response?.data?.message || "An unexpected error occurred.";
 
-    // return error?.response?.data;
+    return error?.response?.data;
 
-    throw new Error(error?.response?.data?.message);
+    // throw new Error(error?.response?.data?.message);
   }
 };
 
