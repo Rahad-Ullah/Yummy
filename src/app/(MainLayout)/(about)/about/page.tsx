@@ -11,7 +11,7 @@ const AboutPage = () => {
           <span className="text-sm font-semibold border rounded-full px-3 py-1">
             About Us
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 pt-2 max-w-screen-lg">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-slate-50 pt-2 max-w-screen-lg">
             Yummy is bringing recipe sharing back to life with ease.
           </h1>
           <p className="font-medium md:text-lg">
@@ -52,16 +52,16 @@ const AboutPage = () => {
         {/* our mission section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-between py-16">
           <div className="md:col-span-2">
-            <h1 className="text-slate-900 text-2xl md:text-3xl font-extrabold mb-4">
+            <h1 className="text-slate-900 dark:text-slate-50 text-2xl md:text-3xl font-extrabold mb-4">
               Your Vision
             </h1>
-            <p className="text-slate-600 font-medium">
+            <p className="text-slate-600 dark:text-slate-300 font-medium">
               We envision a vibrant community where food lovers, home cooks, and
               culinary enthusiasts come together to share, explore, and
               celebrate the art of cooking. Our platform inspires creativity and
               connection through the universal language of food.
             </p>
-            <p className="text-slate-600 font-medium">
+            <p className="text-slate-600 dark:text-slate-300 font-medium">
               By revolutionizing the way recipes are shared and discovered, we
               empower individuals to explore new cuisines, perfect their skills,
               and express their culinary passion. Join us in building a
@@ -69,7 +69,7 @@ const AboutPage = () => {
               their voice.
             </p>
           </div>
-          <div className="bg-primary text-white p-6 rounded-md">
+          <div className="bg-primary dark:bg-primary-50 text-white p-6 rounded-md">
             <h1 className="text-2xl md:text-3xl font-extrabold mb-4">
               Our Mission
             </h1>
@@ -84,10 +84,10 @@ const AboutPage = () => {
 
         {/* our team section */}
         <div className="py-8 md:py-12">
-          <h1 className="text-slate-900 text-3xl md:text-4xl font-extrabold mb-4 text-center">
+          <h1 className="text-slate-900 dark:text-slate-50 text-3xl md:text-4xl font-extrabold mb-4 text-center">
             Meet Our Team
           </h1>
-          <p className="text-slate-600 text-lg md:text-xl font-medium text-center">
+          <p className="text-slate-600 dark:text-slate-300 text-lg md:text-xl font-medium text-center">
             Our team united by passion, driven by excellence.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-10">
