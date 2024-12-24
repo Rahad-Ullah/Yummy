@@ -23,11 +23,19 @@ import addUserSchema from "@/src/schemas/addUser.schema";
 export default function AddAdminModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
 
   const { mutate: addAdmin } = useAddAdmin();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
+      // throw an error if the file is not selected
+      if (!file) {
+        setFileError("Profile photo is required");
+
+        return;
+      }
+
       // Upload the file to ImgBB and get the URL
       const profilePhotoUrl = file ? await uploadToImgBB(file) : null;
 
@@ -55,6 +63,10 @@ export default function AddAdminModal() {
         backdrop="blur"
         isOpen={isOpen}
         scrollBehavior="outside"
+        onClose={() => {
+          setFile(null);
+          setFileError("");
+        }}
         onOpenChange={onOpenChange}
       >
         <ModalContent>
@@ -84,9 +96,11 @@ export default function AddAdminModal() {
                   <div>
                     <Input
                       accept="image/*"
+                      className={`${fileError && "border-red-500 text-red-500"}`}
+                      defaultValue={file?.name}
                       label="Profile Photo"
-                      labelPlacement="outside-left"
                       type="file"
+                      variant="bordered"
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
@@ -94,9 +108,13 @@ export default function AddAdminModal() {
 
                         if (file) {
                           setFile(file);
+                          setFileError("");
                         }
                       }}
                     />
+                    <p className="text-xs text-danger-500 ml-2 mt-1">
+                      {fileError}
+                    </p>
                   </div>
                 </ModalBody>
                 <ModalFooter>
