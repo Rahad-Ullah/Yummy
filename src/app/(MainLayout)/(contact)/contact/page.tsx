@@ -45,7 +45,9 @@ const ContactPage = () => {
               </h1>
               <p className="font-medium">
                 Or just reach out manually to{" "}
-                <span className="text-primary">hello@yummy.com</span>
+                <span className="text-primary dark:text-primary-400">
+                  hello@yummy.com
+                </span>
               </p>
             </div>
 
@@ -86,35 +88,41 @@ const ContactPage = () => {
             </h1>
             <p className="font-medium">
               Or just reach out manually to{" "}
-              <span className="text-primary">hello@yummy.com</span>
+              <span className="text-primary dark:text-primary-400">
+                hello@yummy.com
+              </span>
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-4">
-              <span className="inline-flex p-2 mb-3 bg-indigo-50 rounded-full text-primary">
+              <span className="inline-flex p-2 mb-3 bg-indigo-50 rounded-full text-primary dark:text-primary-400">
                 <Mail size={20} />
               </span>
               <h3 className="text-lg font-bold">Email Support</h3>
               <p className="text-sm">Our team can respond in real time.</p>
-              <p className="mt-3 text-primary font-bold">hello@yummy.com</p>
+              <p className="mt-3 text-primary dark:text-primary-400 font-bold">
+                hello@yummy.com
+              </p>
             </div>
             <div className="p-4">
-              <span className="inline-flex p-2 mb-3 bg-indigo-50 rounded-full text-primary">
+              <span className="inline-flex p-2 mb-3 bg-indigo-50 rounded-full text-primary dark:text-primary-400">
                 <Building2 size={20} />
               </span>
               <h3 className="text-lg font-bold">Visit Our Office</h3>
               <p className="text-sm">Visit our office in real life.</p>
-              <p className="mt-3 text-primary font-bold">
+              <p className="mt-3 text-primary dark:text-primary-400 font-bold">
                 22/c Elementary Avenue, NY
               </p>
             </div>
             <div className="p-4">
-              <span className="inline-flex p-2 mb-3 bg-indigo-50 rounded-full text-primary">
+              <span className="inline-flex p-2 mb-3 bg-indigo-50 rounded-full text-primary dark:text-primary-400">
                 <Phone size={20} />
               </span>
               <h3 className="text-lg font-bold">Call Us Directly</h3>
               <p className="text-sm">Available during working hours.</p>
-              <p className="mt-3 text-primary font-bold">(+1)234-4567-789</p>
+              <p className="mt-3 text-primary dark:text-primary-400 font-bold">
+                (+1)234-4567-789
+              </p>
             </div>
           </div>
         </div>
