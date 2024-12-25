@@ -17,6 +17,7 @@ import Loading from "@/src/components/UI/Loading";
 const AddNewRecipe = () => {
   // state for image file
   const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the file input
 
@@ -54,6 +55,11 @@ const AddNewRecipe = () => {
 
   // submit handler
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (!file) {
+      setFileError("Please upload an image");
+      return;
+    }
+
     try {
       // Upload the file to ImgBB and get the URL
       const recipeImageUrl = file ? await uploadToImgBB(file) : "";
@@ -97,10 +103,12 @@ const AddNewRecipe = () => {
             <Input
               ref={fileInputRef}
               accept="image/*"
+              className={`${fileError && "text-red-500 border-red-500"}`}
               type="file"
               variant="bordered"
               onChange={handleFileChange}
             />
+            <p className="text-red-500 text-xs ml-2 mt-1">{fileError}</p>
           </div>
           {file && (
             <Button color="danger" variant="flat" onClick={handleCancel}>

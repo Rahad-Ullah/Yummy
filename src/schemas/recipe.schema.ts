@@ -3,7 +3,7 @@ import { z } from "zod";
 export const addRecipeValidationSchema = z.object({
   title: z
     .string({ required_error: "Title is required" })
-    .min(10, "At least 10 character required"),
+    .min(1, "Title is required"),
   image: z.string().optional(),
   content: z.string({ required_error: "Content is required" }).optional(),
 });
