@@ -20,7 +20,7 @@ https://yummy-navy.vercel.app
   Users can sign up and log in using their email and password. Admins have additional powers for managing facilities and bookings.
 
 - **Recipe Management:**
-    Users can create, update, and delete their recipes, adding details such as ingredients, steps, cooking time, and an image.
+  Users can create, update, and delete their recipes, adding details such as ingredients, steps, cooking time, and an image.
 
 - **Recipe Discovery:**
   Users can browse through a wide collection of recipes, filter by categories, and search by keywords.
@@ -67,7 +67,7 @@ Follow the instructions given below to install and run the project locally.
 1. **Clone the Repository:**
 
    ```base
-   git clone https://github.com/Rahad-Ullah/Yummy-Client.git
+   git clone https://yummy-navy.vercel.app
    ```
 
 2. **Open in a Code Editor:**
