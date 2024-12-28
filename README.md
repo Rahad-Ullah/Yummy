@@ -92,7 +92,7 @@ Follow the instructions given below to install and run the project locally.
    ```bash
     PORT=5173
     NEXT_PUBLIC_BASE_API=your_server_url
-    NEXT_PUBLIC_IMGBB_API_KEY=imagebb_key
+    NEXT_PUBLIC_IMGBB_API_KEY=imagebb_api_key
    ```
 
 ## Usage
