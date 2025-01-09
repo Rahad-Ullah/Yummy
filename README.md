@@ -53,7 +53,7 @@ https://yummy-navy.vercel.app
 - Mongoose
 - Next UI
 
-## Installation Guideline
+## Installation Guidelines
 
 Follow the instructions given below to install and run the project locally.
 
